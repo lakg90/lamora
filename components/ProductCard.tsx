@@ -8,7 +8,7 @@ import { CURRENCY } from "@/lib/products";
 
 type Props = { product: Product };
 
-function formatPrice(amount: number) {
+export function formatPrice(amount: number) {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: CURRENCY,
@@ -28,16 +28,25 @@ export default function ProductCard({ product }: Props) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image */}
-      <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#FBF8F1" }}>
+      {/* Image — white bg melts into cream via multiply */}
+      <div
+        style={{
+          position: "relative",
+          aspectRatio: "4/5",
+          overflow: "hidden",
+          background: "#F4EFE5", // paper — white studio bg becomes this
+        }}
+      >
         <Image
           src={showAlt ? product.images.alt! : product.images.main}
           alt={`${product.name} in ${product.colourway.label}`}
           fill
-          className="object-cover"
+          className="object-contain"
           style={{
-            transform: hovered ? "scale(1.04)" : "scale(1)",
-            transition: "transform 0.8s cubic-bezier(0.16,1,0.3,1)",
+            mixBlendMode: "multiply",
+            transform: hovered ? "scale(1.05)" : "scale(1)",
+            transition: "transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+            padding: "0.5rem",
           }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
@@ -48,11 +57,11 @@ export default function ProductCard({ product }: Props) {
         <p
           className="font-sans"
           style={{
-            fontSize: "0.65rem",
+            fontSize: "0.62rem",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: "#6B665C",
-            marginBottom: "0.35rem",
+            marginBottom: "0.3rem",
           }}
         >
           {product.colourway.label}
@@ -60,10 +69,10 @@ export default function ProductCard({ product }: Props) {
         <p
           className="font-display"
           style={{
-            fontSize: "1.1rem",
+            fontSize: "1.05rem",
             fontWeight: 300,
             color: "#1B2942",
-            marginBottom: "0.3rem",
+            marginBottom: "0.25rem",
             letterSpacing: "0.02em",
           }}
         >
@@ -72,12 +81,12 @@ export default function ProductCard({ product }: Props) {
         <p
           className="font-sans"
           style={{
-            fontSize: "0.75rem",
+            fontSize: "0.72rem",
             color: "#6B665C",
             letterSpacing: "0.04em",
           }}
         >
-          From {formatPrice(fromPrice)}
+          From {fromPrice === 185 ? "£185" : formatPrice(fromPrice)}
         </p>
       </div>
     </Link>

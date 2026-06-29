@@ -6,7 +6,6 @@ import type { Product, WeightId } from "@/lib/products";
 import { CURRENCY } from "@/lib/products";
 import ProductGallery from "@/components/ProductGallery";
 import ProductCard from "@/components/ProductCard";
-import MeanderRule from "@/components/MeanderRule";
 import Reveal from "@/components/Reveal";
 import { useCart } from "@/lib/cart";
 
@@ -41,137 +40,198 @@ export default function ProductDetail({ product, related }: Props) {
     });
     setAdded(true);
     openCart();
-    setTimeout(() => setAdded(false), 2000);
+    setTimeout(() => setAdded(false), 2500);
   }
 
   return (
-    <div className="bg-paper">
-      {/* Breadcrumb */}
-      <div className="pt-24 pb-4 px-6 md:px-16 bg-ink">
-        <nav className="max-w-7xl mx-auto" aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-[0.65rem] font-sans tracking-wider uppercase text-paper/40">
-            <li><Link href="/" className="hover:text-paper/70 transition-colors">Home</Link></li>
-            <li aria-hidden="true">·</li>
-            <li><Link href="/shop" className="hover:text-paper/70 transition-colors">Shop</Link></li>
-            <li aria-hidden="true">·</li>
-            <li className="text-paper/60">{product.name}</li>
+    <div style={{ background: "#F4EFE5", minHeight: "100vh" }}>
+      {/* Nav band */}
+      <div style={{ background: "#1B2942", paddingTop: "4rem", paddingBottom: "1rem", paddingLeft: "2.5rem", paddingRight: "2.5rem" }}>
+        <nav style={{ maxWidth: "1400px", margin: "0 auto" }} aria-label="Breadcrumb">
+          <ol
+            className="font-sans"
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem", listStyle: "none", padding: 0, margin: 0 }}
+          >
+            <li>
+              <Link href="/" style={{ fontSize: "0.6rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,239,229,0.35)", textDecoration: "none" }}>
+                Home
+              </Link>
+            </li>
+            <li style={{ color: "rgba(244,239,229,0.2)", fontSize: "0.6rem" }} aria-hidden="true">·</li>
+            <li>
+              <Link href="/shop" style={{ fontSize: "0.6rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,239,229,0.35)", textDecoration: "none" }}>
+                Shop
+              </Link>
+            </li>
+            <li style={{ color: "rgba(244,239,229,0.2)", fontSize: "0.6rem" }} aria-hidden="true">·</li>
+            <li>
+              <span className="font-sans" style={{ fontSize: "0.6rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,239,229,0.6)" }}>
+                {product.name}
+              </span>
+            </li>
           </ol>
         </nav>
       </div>
-      <MeanderRule color="brass" />
 
-      {/* Main product layout */}
-      <div className="max-w-7xl mx-auto px-6 md:px-16 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24">
+      {/* Main layout */}
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "4rem 2.5rem 6rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "5rem",
+            alignItems: "start",
+          }}
+          className="product-grid"
+        >
           {/* Gallery */}
           <Reveal>
             <ProductGallery product={product} />
           </Reveal>
 
           {/* Details */}
-          <Reveal delay={150}>
-            <div className="max-w-sm">
-              <p className="text-eyebrow-brass mb-3">{product.colourway.label}</p>
-              <h1 className="text-display-md font-display text-ink mb-4">
+          <Reveal delay={100}>
+            <div style={{ maxWidth: "440px" }}>
+              {/* Colourway dots — shows all colourways for this pattern */}
+              <ColourwayNav product={product} />
+
+              <p
+                className="font-sans"
+                style={{ fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#AE8B4C", marginBottom: "0.75rem" }}
+              >
+                {product.colourway.label}
+              </p>
+              <h1
+                className="font-display"
+                style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 300, color: "#1B2942", marginBottom: "0.5rem", letterSpacing: "0.02em", lineHeight: 1.1 }}
+              >
                 {product.name}
               </h1>
-              <div className="w-10 h-px bg-brass mb-5" />
+              <p
+                className="font-sans"
+                style={{ fontSize: "0.7rem", color: "#6B665C", letterSpacing: "0.06em", marginBottom: "2rem" }}
+              >
+                {product.composition}
+              </p>
 
-              {/* Price + weight selector */}
-              <div className="mb-6">
-                <p className="font-display text-2xl text-ink font-light mb-4">
-                  {formatPrice(activeWeight.price)}
+              {/* Price */}
+              <p
+                className="font-display"
+                style={{ fontSize: "1.6rem", fontWeight: 300, color: "#1B2942", marginBottom: "1.5rem", letterSpacing: "0.02em" }}
+              >
+                {formatPrice(activeWeight.price)}
+              </p>
+
+              {/* Weight selector */}
+              <div style={{ marginBottom: "1.75rem" }}>
+                <p className="font-sans" style={{ fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#6B665C", marginBottom: "0.75rem" }}>
+                  Weight
                 </p>
-                <div
-                  className="flex gap-2"
-                  role="radiogroup"
-                  aria-label="Select weight"
-                >
+                <div style={{ display: "flex", gap: "0.5rem" }} role="radiogroup" aria-label="Select weight">
                   {product.weights.map((w) => (
                     <button
                       key={w.id}
                       role="radio"
                       aria-checked={selectedWeight === w.id}
                       onClick={() => setSelectedWeight(w.id)}
-                      className={`px-4 py-2 text-xs font-sans tracking-wide border transition-all duration-200 ${
-                        selectedWeight === w.id
-                          ? "bg-ink text-paper border-ink"
-                          : "bg-transparent text-muted border-line hover:border-ink-soft"
-                      }`}
+                      className="font-sans"
+                      style={{
+                        padding: "0.6rem 1.2rem",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.06em",
+                        border: selectedWeight === w.id ? "1px solid #1B2942" : "1px solid #D8CCB8",
+                        background: selectedWeight === w.id ? "#1B2942" : "transparent",
+                        color: selectedWeight === w.id ? "#F4EFE5" : "#6B665C",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                      }}
                     >
                       {w.label}
                     </button>
                   ))}
                 </div>
+                <p className="font-sans" style={{ fontSize: "0.65rem", color: "#6B665C", marginTop: "0.5rem", opacity: 0.7 }}>
+                  {activeWeight.gsm}gsm
+                </p>
               </div>
 
               {/* Description */}
-              <p className="font-sans text-sm text-muted leading-relaxed mb-5">
+              <p
+                className="font-sans"
+                style={{ fontSize: "0.85rem", color: "#6B665C", lineHeight: 1.75, marginBottom: "2rem" }}
+              >
                 {product.description}
               </p>
 
-              {/* Composition */}
-              <p className="font-sans text-xs text-muted/70 mb-6">
-                {product.composition}
-              </p>
-
-              {/* Quantity */}
-              <div className="flex items-center gap-4 mb-5">
-                <label className="text-eyebrow" htmlFor={`qty-${product.slug}`}>
-                  Quantity
-                </label>
-                <div className="flex items-center border border-line">
+              {/* Quantity + Add */}
+              <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem" }}>
+                <div style={{ display: "flex", alignItems: "center", border: "1px solid #D8CCB8" }}>
                   <button
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="w-9 h-9 flex items-center justify-center text-muted hover:text-ink transition-colors"
+                    style={{ width: "40px", height: "48px", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#6B665C" }}
                     aria-label="Decrease quantity"
                   >
                     −
                   </button>
                   <span
-                    id={`qty-${product.slug}`}
-                    className="w-8 text-center font-sans text-sm text-ink"
+                    className="font-sans"
+                    style={{ width: "32px", textAlign: "center", fontSize: "0.85rem", color: "#1B2942" }}
                     aria-live="polite"
                   >
                     {qty}
                   </span>
                   <button
                     onClick={() => setQty((q) => q + 1)}
-                    className="w-9 h-9 flex items-center justify-center text-muted hover:text-ink transition-colors"
+                    style={{ width: "40px", height: "48px", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#6B665C" }}
                     aria-label="Increase quantity"
                   >
                     +
                   </button>
                 </div>
+                <button
+                  onClick={handleAdd}
+                  className="font-sans"
+                  style={{
+                    flex: 1,
+                    background: added ? "#2C3A55" : "#1B2942",
+                    color: "#F4EFE5",
+                    border: "none",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    transition: "background 0.3s ease",
+                    padding: "0 1.5rem",
+                  }}
+                >
+                  {added ? "Added to bag" : "Add to bag"}
+                </button>
               </div>
 
-              {/* Add to bag */}
-              <button
-                onClick={handleAdd}
-                className="w-full bg-ink text-paper font-sans text-xs tracking-widest uppercase py-4 hover:bg-ink-soft transition-colors duration-200 mb-3"
-              >
-                {added ? "Added to bag" : "Add to bag"}
-              </button>
-
               {/* Accordions */}
-              <div className="mt-8 border-t border-line">
-                <Accordion title="Care">
-                  <ul className="space-y-2">
+              <div style={{ marginTop: "2.5rem", borderTop: "1px solid #D8CCB8" }}>
+                <Accordion title="Care instructions">
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
                     {product.care.map((c) => (
-                      <li key={c} className="font-sans text-sm text-muted">
+                      <li key={c} className="font-sans" style={{ fontSize: "0.8rem", color: "#6B665C", lineHeight: 1.6 }}>
                         {c}
                       </li>
                     ))}
                   </ul>
                 </Accordion>
-                <Accordion title="Composition &amp; spec">
-                  <div className="space-y-2 font-sans text-sm text-muted">
+                <Accordion title="Composition &amp; specifications">
+                  <div className="font-sans" style={{ fontSize: "0.8rem", color: "#6B665C", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                     <p>{product.composition}</p>
                     {product.weights.map((w) => (
-                      <p key={w.id}>
-                        {w.label}: {w.gsm}gsm — {formatPrice(w.price)}
-                      </p>
+                      <p key={w.id}>{w.label}: {w.gsm}gsm — {formatPrice(w.price)}</p>
                     ))}
+                  </div>
+                </Accordion>
+                <Accordion title="Delivery &amp; returns">
+                  <div className="font-sans" style={{ fontSize: "0.8rem", color: "#6B665C", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    {/* PLACEHOLDER: add real shipping and returns policy */}
+                    <p>Standard delivery: 3–7 business days.</p>
+                    <p>Returns accepted within 30 days in original condition.</p>
                   </div>
                 </Accordion>
               </div>
@@ -180,21 +240,21 @@ export default function ProductDetail({ product, related }: Props) {
         </div>
       </div>
 
-      <MeanderRule color="line" />
-
-      {/* Related throws */}
+      {/* Related */}
       {related.length > 0 && (
-        <div className="bg-paper-raised py-20 px-6 md:px-16">
-          <div className="max-w-7xl mx-auto">
+        <div style={{ background: "#FBF8F1", padding: "5rem 2.5rem" }}>
+          <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
             <Reveal>
-              <p className="text-eyebrow mb-2">You may also like</p>
-              <h2 className="text-display-md font-display text-ink mb-10">
-                Related throws
+              <h2
+                className="font-display"
+                style={{ fontSize: "1rem", fontWeight: 400, color: "#1B2942", letterSpacing: "0.04em", marginBottom: "3rem" }}
+              >
+                You may also like
               </h2>
             </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "2.5rem" }}>
               {related.map((p, i) => (
-                <Reveal key={p.slug} delay={i * 120}>
+                <Reveal key={p.slug} delay={i * 100}>
                   <ProductCard product={p} />
                 </Reveal>
               ))}
@@ -202,35 +262,69 @@ export default function ProductDetail({ product, related }: Props) {
           </div>
         </div>
       )}
+
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .product-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
 
-function Accordion({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function ColourwayNav({ product }: { product: Product }) {
+  const colourways = [
+    { id: "fjord", hex: "#8DA6BE", label: "Fjord" },
+    { id: "dune",  hex: "#C2A98A", label: "Dune" },
+    { id: "slate", hex: "#7E8488", label: "Slate" },
+  ];
+  return (
+    <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.5rem" }}>
+      {colourways.map((c) => (
+        <Link
+          key={c.id}
+          href={`/products/${product.pattern}-${c.id}`}
+          title={c.label}
+          style={{
+            display: "block",
+            width: "22px",
+            height: "22px",
+            background: c.hex,
+            border: product.colourway.id === c.id ? "2px solid #1B2942" : "2px solid transparent",
+            outline: product.colourway.id === c.id ? "1px solid #D8CCB8" : "none",
+            outlineOffset: "1px",
+            transition: "border-color 0.2s",
+          }}
+          aria-label={`View in ${c.label}`}
+          aria-current={product.colourway.id === c.id ? "page" : undefined}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Accordion({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-line">
+    <div style={{ borderBottom: "1px solid #D8CCB8" }}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full justify-between items-center py-4 text-left"
+        style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", padding: "1.1rem 0", background: "none", border: "none", cursor: "pointer" }}
         aria-expanded={open}
       >
-        <span className="font-sans text-sm text-ink tracking-wide">{title}</span>
-        <span
-          className="text-muted text-lg transition-transform duration-300"
-          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-          aria-hidden="true"
-        >
+        <span className="font-sans" style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#1B2942" }}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+        <span style={{ color: "#6B665C", fontSize: "1rem", transform: open ? "rotate(45deg)" : "none", transition: "transform 0.25s ease", lineHeight: 1 }} aria-hidden="true">
           +
         </span>
       </button>
-      {open && <div className="pb-5">{children}</div>}
+      {open && (
+        <div style={{ paddingBottom: "1.25rem" }}>{children}</div>
+      )}
     </div>
   );
 }

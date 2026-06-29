@@ -1,24 +1,41 @@
-// INTEGRATION — This is the single swap point for payments.
+// CHECKOUT SEAM — this is the single file to touch when wiring payments.
 //
-// PATH A — Stripe Checkout (recommended for a small catalogue):
-//   1. Add STRIPE_SECRET_KEY to env.
-//   2. Create app/api/checkout/route.ts -> creates a Stripe Checkout Session
-//      from `items` (map slug+weightId -> price). Return session.url.
-//   3. Replace this stub to POST the cart to /api/checkout and return { url }.
-//   Stripe hosts the payment page (cards, tax, fraud). You manage inventory.
+// Current state: calls /api/checkout (Stripe). If STRIPE_SECRET_KEY is not set,
+// the API route logs a warning and returns { url: null }, keeping the UI safe.
 //
-// PATH B — Headless Shopify (best if you want inventory/orders/back-office):
+// PATH A — Stripe Checkout (active implementation in app/api/checkout/route.ts):
+//   1. Add STRIPE_SECRET_KEY to Vercel env vars.
+//   2. Create products in Stripe dashboard → copy price IDs into STRIPE_PRICE_IDS
+//      in lib/products.ts.
+//   3. Done — Stripe hosts the payment page.
+//
+// PATH B — Headless Shopify (alternative):
 //   1. Set SHOPIFY_STORE_DOMAIN + SHOPIFY_STOREFRONT_TOKEN.
-//   2. Replace lib/products.ts reads with Storefront API (GraphQL) queries.
-//   3. Build a Shopify cart (cartCreate / cartLinesAdd) and return cart.checkoutUrl here.
-//   Shopify hosts checkout and owns inventory/orders.
+//   2. Replace /api/checkout with a Shopify cartCreate/cartLinesAdd flow.
+//   3. Return cart.checkoutUrl here instead.
 
 import type { CartItem } from "./cart";
 
 export async function createCheckout(
   items: CartItem[]
 ): Promise<{ url: string | null }> {
-  // STUB — replace with Stripe or Shopify integration
-  console.log("[checkout stub] items:", items);
-  return { url: null };
+  try {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items }),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json().catch(() => ({ error: "Unknown error" }));
+      console.error("[checkout]", error);
+      return { url: null };
+    }
+
+    const { url } = await res.json();
+    return { url: url ?? null };
+  } catch (err) {
+    console.error("[checkout]", err);
+    return { url: null };
+  }
 }

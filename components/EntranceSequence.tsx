@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 
-type Phase = "idle" | "logo" | "wordmark" | "sub" | "done" | "out";
+type Phase = "idle" | "logo" | "sub" | "out" | "done";
 
 export default function EntranceSequence({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<Phase>("idle");
@@ -12,8 +12,9 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
     setPhase("out");
     setTimeout(() => {
       sessionStorage.setItem("lamora-intro-seen", "1");
+      setPhase("done");
       onDone();
-    }, 1100);
+    }, 1000);
   }, [onDone]);
 
   useEffect(() => {
@@ -32,114 +33,99 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
     const onKey = () => finish();
     document.addEventListener("keydown", onKey);
 
-    const t1 = setTimeout(() => setPhase("logo"), 80);
-    const t2 = setTimeout(() => setPhase("wordmark"), 1000);
-    const t3 = setTimeout(() => setPhase("sub"), 1700);
-    const t4 = setTimeout(() => finish(), 3800);
+    const t1 = setTimeout(() => setPhase("logo"), 100);
+    const t2 = setTimeout(() => setPhase("sub"), 1400);
+    const t3 = setTimeout(() => finish(), 3600);
 
     return () => {
-      clearTimeout(t1); clearTimeout(t2);
-      clearTimeout(t3); clearTimeout(t4);
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
       document.removeEventListener("keydown", onKey);
     };
   }, [finish, onDone]);
 
   if (phase === "done") return null;
 
-  const visible = phase !== "idle";
-  const out = phase === "out";
+  const logoVisible = phase === "logo" || phase === "sub" || phase === "out";
+  const subVisible  = phase === "sub" || phase === "out";
+  const isOut       = phase === "out";
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-ink flex flex-col items-center justify-center"
       style={{
-        opacity: out ? 0 : 1,
-        transform: out ? "translateY(-2%)" : "translateY(0)",
-        transition: out
-          ? "opacity 1s cubic-bezier(0.76,0,0.24,1), transform 1.1s cubic-bezier(0.76,0,0.24,1)"
+        position: "fixed",
+        inset: 0,
+        zIndex: 100,
+        background: "#1B2942",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: isOut ? 0 : 1,
+        transform: isOut ? "scale(1.015)" : "scale(1)",
+        transition: isOut
+          ? "opacity 1s cubic-bezier(0.76,0,0.24,1), transform 1s cubic-bezier(0.76,0,0.24,1)"
           : "none",
-        pointerEvents: out ? "none" : "auto",
+        pointerEvents: isOut ? "none" : "auto",
       }}
       aria-hidden="true"
     >
-      <div className="flex flex-col items-center select-none" style={{ gap: "2rem" }}>
-        {/* Logo mark only */}
-        <div
-          style={{
-            width: 72,
-            height: 72,
-            position: "relative",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: "opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          <Image
-            src="/brand/lamora-logo.png"
-            alt="LAMORA"
-            fill
-            className="object-contain"
-            style={{ filter: "brightness(10) saturate(0)" }}
-            sizes="72px"
-            priority
-          />
-        </div>
-
-        {/* Thin brass rule */}
-        <div
-          style={{
-            height: "1px",
-            background: "#AE8B4C",
-            width: phase === "wordmark" || phase === "sub" || phase === "out" ? "64px" : "0px",
-            transition: "width 0.8s cubic-bezier(0.76,0,0.24,1)",
-            transitionDelay: "0.1s",
-          }}
+      {/* Logo — already white on navy, no filters needed */}
+      <div
+        style={{
+          position: "relative",
+          width: "clamp(240px, 38vw, 420px)",
+          aspectRatio: "1280 / 640",
+          opacity: logoVisible ? 1 : 0,
+          transform: logoVisible ? "translateY(0) scale(1)" : "translateY(16px) scale(0.97)",
+          transition: "opacity 1.4s cubic-bezier(0.16,1,0.3,1), transform 1.4s cubic-bezier(0.16,1,0.3,1)",
+          transitionDelay: logoVisible ? "0s" : "0s",
+        }}
+      >
+        <Image
+          src="/brand/lamora-logo.png"
+          alt="LAMORA"
+          fill
+          className="object-contain"
+          sizes="(max-width: 768px) 280px, 420px"
+          priority
         />
-
-        {/* Wordmark */}
-        <div style={{ textAlign: "center" }}>
-          <p
-            className="font-display text-paper"
-            style={{
-              fontSize: "clamp(1.8rem, 5vw, 3rem)",
-              fontWeight: 300,
-              letterSpacing: "0.35em",
-              opacity: phase === "wordmark" || phase === "sub" || phase === "out" ? 1 : 0,
-              transform: phase === "wordmark" || phase === "sub" || phase === "out" ? "translateY(0)" : "translateY(8px)",
-              transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
-            LAMORA
-          </p>
-          <p
-            className="font-sans text-paper"
-            style={{
-              fontSize: "0.6rem",
-              letterSpacing: "0.3em",
-              marginTop: "0.6rem",
-              opacity: phase === "sub" || phase === "out" ? 0.35 : 0,
-              transition: "opacity 0.8s ease",
-              textTransform: "uppercase",
-            }}
-          >
-            Cashmere
-          </p>
-        </div>
       </div>
 
-      {/* Enter */}
+      {/* Tagline */}
+      <p
+        className="font-sans"
+        style={{
+          marginTop: "2.5rem",
+          fontSize: "0.58rem",
+          letterSpacing: "0.32em",
+          textTransform: "uppercase",
+          color: "rgba(244,239,229,0.35)",
+          opacity: subVisible ? 1 : 0,
+          transition: "opacity 0.9s ease",
+          transitionDelay: subVisible ? "0.2s" : "0s",
+        }}
+      >
+        Pure cashmere
+      </p>
+
+      {/* Enter button */}
       <button
         onClick={finish}
-        className="absolute bottom-10 font-sans text-paper"
+        className="font-sans"
         style={{
-          fontSize: "0.6rem",
+          position: "absolute",
+          bottom: "2.5rem",
+          fontSize: "0.58rem",
           letterSpacing: "0.28em",
           textTransform: "uppercase",
-          opacity: phase === "sub" ? 0.3 : 0,
-          transition: "opacity 0.6s ease 0.4s",
+          color: "rgba(244,239,229,0.28)",
           background: "none",
           border: "none",
           cursor: "pointer",
+          opacity: subVisible ? 1 : 0,
+          transition: "opacity 0.7s ease",
+          transitionDelay: subVisible ? "0.5s" : "0s",
+          padding: "0.5rem 1rem",
         }}
         aria-label="Enter site"
       >

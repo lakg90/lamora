@@ -29,6 +29,12 @@ export type Product = {
 
 export const CURRENCY = "GBP"; // PLACEHOLDER — confirm: owner is based in Oslo; may prefer NOK or EUR
 
+// Stripe price IDs — PLACEHOLDER: create products in Stripe dashboard, then fill these in
+export const STRIPE_PRICE_IDS: Record<WeightId, string> = {
+  classic:     "price_PLACEHOLDER_classic",
+  heavyweight: "price_PLACEHOLDER_heavyweight",
+};
+
 const WEIGHTS: Weight[] = [
   {
     id: "classic",
@@ -51,6 +57,7 @@ const CARE = [
 ];
 
 export const products: Product[] = [
+  // ─── MEANDER ───────────────────────────────────────────────────────
   {
     slug: "meander-fjord",
     name: "Meander Throw",
@@ -58,11 +65,11 @@ export const products: Product[] = [
     colourway: { id: "fjord", label: "Fjord", hex: "#8DA6BE" },
     weights: WEIGHTS,
     images: {
-      main: "/products/meander-fjord-main.jpg",
+      main:   "/products/meander-fjord-main.jpg",
       detail: "/products/meander-fjord-detail.jpg",
-      alt: "/products/meander-fjord-alt.jpg",
+      alt:    "/products/meander-fjord-alt.jpg",
     },
-    shortDescription: "A Fjord Meander throw in pure cashmere, finished with a hand-knotted fringe.",
+    shortDescription: "Meander throw in Fjord — 100% cashmere with hand-knotted fringe.",
     description:
       "A Fjord Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key pattern runs in soft dusty-blue — geometry that has meant 'unending' for three thousand years. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
@@ -75,11 +82,11 @@ export const products: Product[] = [
     colourway: { id: "dune", label: "Dune", hex: "#C2A98A" },
     weights: WEIGHTS,
     images: {
-      main: "/products/meander-dune-main.jpg",
+      main:   "/products/meander-dune-main.jpg",
       detail: "/products/meander-dune-detail.jpg",
-      alt: "/products/meander-dune-alt.jpg",
+      alt:    "/products/meander-dune-alt.jpg",
     },
-    shortDescription: "A Dune Meander throw in pure cashmere, finished with a hand-knotted fringe.",
+    shortDescription: "Meander throw in Dune — 100% cashmere with hand-knotted fringe.",
     description:
       "A Dune Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key runs in warm sand — the colour of light on stone at the end of the day. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
@@ -92,13 +99,31 @@ export const products: Product[] = [
     colourway: { id: "slate", label: "Slate", hex: "#7E8488" },
     weights: WEIGHTS,
     images: {
-      main: "/products/meander-slate-main.jpg",
+      main:   "/products/meander-slate-main.jpg",
       detail: "/products/meander-slate-detail.jpg",
-      alt: "/products/meander-slate-alt.jpg",
+      alt:    "/products/meander-slate-alt.jpg",
     },
-    shortDescription: "A Slate Meander throw in pure cashmere, finished with a hand-knotted fringe.",
+    shortDescription: "Meander throw in Slate — 100% cashmere with hand-knotted fringe.",
     description:
       "A Slate Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key holds its shape in cool grey — quiet, precise, made to last decades. Generous enough for two, light enough to fold into a bag.",
+    care: CARE,
+    composition: "100% cashmere",
+  },
+  // ─── LAUREL ────────────────────────────────────────────────────────
+  {
+    slug: "laurel-fjord",
+    name: "Laurel Throw",
+    pattern: "laurel",
+    colourway: { id: "fjord", label: "Fjord", hex: "#8DA6BE" },
+    weights: WEIGHTS,
+    images: {
+      main:   "/products/laurel-fjord-main.jpg",
+      detail: "/products/laurel-fjord-detail.jpg",
+      alt:    "/products/laurel-fjord-alt.jpg",
+    },
+    shortDescription: "Laurel throw in Fjord — 100% cashmere with hand-knotted fringe.",
+    description:
+      "A Fjord Laurel throw in pure cashmere, finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — in the cool blue of still water. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
     composition: "100% cashmere",
   },
@@ -109,33 +134,33 @@ export const products: Product[] = [
     colourway: { id: "dune", label: "Dune", hex: "#C2A98A" },
     weights: WEIGHTS,
     images: {
-      main: "/products/laurel-dune-main.jpg",
-      alt: "/products/laurel-dune-alt.jpg",
+      main:   "/products/laurel-dune-main.jpg",
+      detail: "/products/laurel-dune-detail.jpg",
+      alt:    "/products/laurel-dune-alt.jpg",
     },
-    shortDescription: "A Dune Laurel throw in pure cashmere, finished with a hand-knotted fringe.",
+    shortDescription: "Laurel throw in Dune — 100% cashmere with hand-knotted fringe.",
     description:
       "A Dune Laurel throw in pure cashmere, finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — warm sand catching the weave. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
     composition: "100% cashmere",
   },
   {
-    slug: "laurel-fjord",
+    slug: "laurel-slate",
     name: "Laurel Throw",
     pattern: "laurel",
-    colourway: { id: "fjord", label: "Fjord", hex: "#8DA6BE" },
+    colourway: { id: "slate", label: "Slate", hex: "#7E8488" },
     weights: WEIGHTS,
     images: {
-      main: "/products/laurel-fjord-main.jpg",
-      detail: "/products/laurel-fjord-detail.jpg",
-      alt: "/products/laurel-fjord-alt.jpg",
+      main:   "/products/laurel-slate-main.jpg",
+      detail: "/products/laurel-slate-detail.jpg",
+      alt:    "/products/laurel-slate-alt.jpg",
     },
-    shortDescription: "A Fjord Laurel throw in pure cashmere, finished with a hand-knotted fringe.",
+    shortDescription: "Laurel throw in Slate — 100% cashmere with hand-knotted fringe.",
     description:
-      "A Fjord Laurel throw in pure cashmere, finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — in the cool blue of still water. Generous enough for two, light enough to fold into a bag.",
+      "A Slate Laurel throw in pure cashmere, finished with a hand-knotted fringe. The leaf pattern in cool grey — unhurried, precise, made to live in the room for years. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
     composition: "100% cashmere",
   },
-  // TODO: Laurel — Slate (slug: "laurel-slate") — add when photography is available
 ];
 
 export function getProduct(slug: string): Product | undefined {
@@ -143,8 +168,14 @@ export function getProduct(slug: string): Product | undefined {
 }
 
 export function getRelated(product: Product, count = 3): Product[] {
-  return products
-    .filter((p) => p.slug !== product.slug)
-    .filter((p) => p.pattern === product.pattern || p.colourway.id === product.colourway.id)
-    .slice(0, count);
+  const samePattern = products.filter(
+    (p) => p.slug !== product.slug && p.pattern === product.pattern
+  );
+  const sameColour = products.filter(
+    (p) =>
+      p.slug !== product.slug &&
+      p.pattern !== product.pattern &&
+      p.colourway.id === product.colourway.id
+  );
+  return [...samePattern, ...sameColour].slice(0, count);
 }
