@@ -28,37 +28,40 @@ export default function ProductCard({ product }: Props) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image — white bg melts into cream via multiply */}
+      {/*
+        object-fit: cover + overflow hidden means the studio background is CROPPED OUT.
+        Every card shows only the textile pattern, filling the frame identically.
+        Hover scale zooms into the product itself, not into white space — consistent across all.
+      */}
       <div
         style={{
           position: "relative",
-          aspectRatio: "4/5",
+          aspectRatio: "3 / 4",
           overflow: "hidden",
-          background: "#F4EFE5", // paper — white studio bg becomes this
+          background: "#EAE5DB", // neutral mid-point — barely visible behind cover
         }}
       >
         <Image
           src={showAlt ? product.images.alt! : product.images.main}
           alt={`${product.name} in ${product.colourway.label}`}
           fill
-          className="object-contain"
+          className="object-cover"
           style={{
-            mixBlendMode: "multiply",
-            transform: hovered ? "scale(1.05)" : "scale(1)",
-            transition: "transform 0.9s cubic-bezier(0.16,1,0.3,1)",
-            padding: "0.5rem",
+            objectPosition: "center 25%",   // favour the pattern, not the fringe
+            transform: hovered ? "scale(1.06)" : "scale(1)",
+            transition: "transform 1s cubic-bezier(0.16,1,0.3,1)",
           }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
 
       {/* Caption */}
-      <div style={{ paddingTop: "1rem" }}>
+      <div style={{ paddingTop: "0.9rem" }}>
         <p
           className="font-sans"
           style={{
-            fontSize: "0.62rem",
-            letterSpacing: "0.18em",
+            fontSize: "0.6rem",
+            letterSpacing: "0.2em",
             textTransform: "uppercase",
             color: "#6B665C",
             marginBottom: "0.3rem",
@@ -72,7 +75,7 @@ export default function ProductCard({ product }: Props) {
             fontSize: "1.05rem",
             fontWeight: 300,
             color: "#1B2942",
-            marginBottom: "0.25rem",
+            marginBottom: "0.2rem",
             letterSpacing: "0.02em",
           }}
         >
@@ -81,12 +84,12 @@ export default function ProductCard({ product }: Props) {
         <p
           className="font-sans"
           style={{
-            fontSize: "0.72rem",
+            fontSize: "0.7rem",
             color: "#6B665C",
             letterSpacing: "0.04em",
           }}
         >
-          From {fromPrice === 185 ? "£185" : formatPrice(fromPrice)}
+          From {formatPrice(fromPrice)}
         </p>
       </div>
     </Link>

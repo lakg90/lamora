@@ -385,14 +385,15 @@ function EditorialBlock({
   return (
     <Link href={href} style={{ display: "block", textDecoration: "none" }}>
       <div
-        style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#FBF8F1" }}
+        style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#EAE5DB" }}
         className="group"
       >
         <Image
           src={image}
           alt={alt}
           fill
-          className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+          className="object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out"
+          style={{ objectPosition: "center 25%" }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>

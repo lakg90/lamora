@@ -14,7 +14,7 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
       sessionStorage.setItem("lamora-intro-seen", "1");
       setPhase("done");
       onDone();
-    }, 1000);
+    }, 1100);
   }, [onDone]);
 
   useEffect(() => {
@@ -33,9 +33,9 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
     const onKey = () => finish();
     document.addEventListener("keydown", onKey);
 
-    const t1 = setTimeout(() => setPhase("logo"), 100);
-    const t2 = setTimeout(() => setPhase("sub"), 1400);
-    const t3 = setTimeout(() => finish(), 3600);
+    const t1 = setTimeout(() => setPhase("logo"), 80);
+    const t2 = setTimeout(() => setPhase("sub"), 1600);
+    const t3 = setTimeout(() => finish(), 4000);
 
     return () => {
       clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
@@ -45,9 +45,9 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
 
   if (phase === "done") return null;
 
-  const logoVisible = phase === "logo" || phase === "sub" || phase === "out";
-  const subVisible  = phase === "sub" || phase === "out";
-  const isOut       = phase === "out";
+  const logoIn = phase === "logo" || phase === "sub" || phase === "out";
+  const subIn  = phase === "sub"  || phase === "out";
+  const isOut  = phase === "out";
 
   return (
     <div
@@ -61,24 +61,28 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
         alignItems: "center",
         justifyContent: "center",
         opacity: isOut ? 0 : 1,
-        transform: isOut ? "scale(1.015)" : "scale(1)",
-        transition: isOut
-          ? "opacity 1s cubic-bezier(0.76,0,0.24,1), transform 1s cubic-bezier(0.76,0,0.24,1)"
-          : "none",
+        transition: isOut ? "opacity 1.1s cubic-bezier(0.76,0,0.24,1)" : "none",
         pointerEvents: isOut ? "none" : "auto",
       }}
       aria-hidden="true"
     >
-      {/* Logo — already white on navy, no filters needed */}
+      {/*
+        mix-blend-mode: screen on a dark background:
+        - Dark pixels in the PNG (the textured navy bg) → become transparent against #1B2942
+        - Light/white pixels (the llama crest + wordmark) → stay bright and visible
+        Result: just the logo design floats on the navy, no visible rectangle
+      */}
       <div
         style={{
           position: "relative",
-          width: "clamp(240px, 38vw, 420px)",
-          aspectRatio: "1280 / 640",
-          opacity: logoVisible ? 1 : 0,
-          transform: logoVisible ? "translateY(0) scale(1)" : "translateY(16px) scale(0.97)",
-          transition: "opacity 1.4s cubic-bezier(0.16,1,0.3,1), transform 1.4s cubic-bezier(0.16,1,0.3,1)",
-          transitionDelay: logoVisible ? "0s" : "0s",
+          width: "clamp(280px, 44vw, 500px)",
+          aspectRatio: "2 / 1",
+          opacity: logoIn ? 1 : 0,
+          transform: logoIn
+            ? "translateY(0) scale(1)"
+            : "translateY(20px) scale(0.96)",
+          transition:
+            "opacity 1.6s cubic-bezier(0.16,1,0.3,1), transform 1.6s cubic-bezier(0.16,1,0.3,1)",
         }}
       >
         <Image
@@ -86,29 +90,30 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
           alt="LAMORA"
           fill
           className="object-contain"
-          sizes="(max-width: 768px) 280px, 420px"
+          style={{ mixBlendMode: "screen" }}
+          sizes="(max-width: 768px) 300px, 500px"
           priority
         />
       </div>
 
-      {/* Tagline */}
+      {/* "Pure cashmere" fades in below */}
       <p
         className="font-sans"
         style={{
-          marginTop: "2.5rem",
-          fontSize: "0.58rem",
+          marginTop: "2rem",
+          fontSize: "0.6rem",
           letterSpacing: "0.32em",
           textTransform: "uppercase",
-          color: "rgba(244,239,229,0.35)",
-          opacity: subVisible ? 1 : 0,
-          transition: "opacity 0.9s ease",
-          transitionDelay: subVisible ? "0.2s" : "0s",
+          color: "rgba(244,239,229,0.38)",
+          opacity: subIn ? 1 : 0,
+          transition: "opacity 1s ease",
+          transitionDelay: subIn ? "0.15s" : "0s",
         }}
       >
         Pure cashmere
       </p>
 
-      {/* Enter button */}
+      {/* Enter */}
       <button
         onClick={finish}
         className="font-sans"
@@ -118,14 +123,14 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
           fontSize: "0.58rem",
           letterSpacing: "0.28em",
           textTransform: "uppercase",
-          color: "rgba(244,239,229,0.28)",
+          color: "rgba(244,239,229,0.25)",
           background: "none",
           border: "none",
           cursor: "pointer",
-          opacity: subVisible ? 1 : 0,
-          transition: "opacity 0.7s ease",
-          transitionDelay: subVisible ? "0.5s" : "0s",
-          padding: "0.5rem 1rem",
+          opacity: subIn ? 1 : 0,
+          transition: "opacity 0.8s ease",
+          transitionDelay: subIn ? "0.6s" : "0s",
+          padding: "0.5rem 1.5rem",
         }}
         aria-label="Enter site"
       >

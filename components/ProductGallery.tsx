@@ -17,24 +17,23 @@ export default function ProductGallery({ product }: Props) {
   const [active, setActive] = useState(0);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-      {/* Main image */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+      {/* Main image — cover crops the studio bg, consistent fill */}
       <div
         style={{
           position: "relative",
-          aspectRatio: "4/5",
+          aspectRatio: "3 / 4",
           overflow: "hidden",
-          background: "#F4EFE5",
+          background: "#EAE5DB",
         }}
       >
         <Image
           src={images[active]}
           alt={`${product.name} in ${product.colourway.label}`}
           fill
-          className="object-contain"
+          className="object-cover"
           style={{
-            mixBlendMode: "multiply",
-            padding: "1rem",
+            objectPosition: "center 20%",
             transition: "opacity 0.3s ease",
           }}
           sizes="(max-width: 768px) 100vw, 55vw"
@@ -42,34 +41,37 @@ export default function ProductGallery({ product }: Props) {
         />
       </div>
 
-      {/* Thumbnails */}
+      {/* Thumbnails — contain so full throw is visible for selection */}
       {images.length > 1 && (
-        <div style={{ display: "flex", gap: "0.75rem", overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: "0.6rem", overflowX: "auto" }}>
           {images.map((src, i) => (
             <button
               key={src}
               onClick={() => setActive(i)}
               aria-label={`View image ${i + 1}`}
+              aria-pressed={active === i}
               style={{
                 position: "relative",
                 flexShrink: 0,
-                width: "72px",
-                height: "90px",
-                background: "#F4EFE5",
-                border: active === i ? "1.5px solid #AE8B4C" : "1.5px solid transparent",
+                width: "68px",
+                height: "85px",
+                background: "#EAE5DB",
+                border: "none",
+                outline: active === i ? "1.5px solid #AE8B4C" : "1.5px solid transparent",
+                outlineOffset: "2px",
                 cursor: "pointer",
                 overflow: "hidden",
                 padding: 0,
-                transition: "border-color 0.2s ease",
+                transition: "outline-color 0.2s ease",
               }}
             >
               <Image
                 src={src}
                 alt={`Thumbnail ${i + 1}`}
                 fill
-                className="object-contain"
-                style={{ mixBlendMode: "multiply", padding: "4px" }}
-                sizes="72px"
+                className="object-cover"
+                style={{ objectPosition: "center 20%" }}
+                sizes="68px"
               />
             </button>
           ))}
