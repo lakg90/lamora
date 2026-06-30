@@ -66,17 +66,11 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
       }}
       aria-hidden="true"
     >
-      {/*
-        mix-blend-mode: screen on a dark background:
-        - Dark pixels in the PNG (the textured navy bg) → become transparent against #1B2942
-        - Light/white pixels (the llama crest + wordmark) → stay bright and visible
-        Result: just the logo design floats on the navy, no visible rectangle
-      */}
       <div
         style={{
           position: "relative",
-          width: "clamp(280px, 44vw, 500px)",
-          aspectRatio: "2 / 1",
+          width: "clamp(300px, 46vw, 560px)",
+          aspectRatio: "16 / 9",
           opacity: logoIn ? 1 : 0,
           transform: logoIn
             ? "translateY(0) scale(1)"
@@ -91,8 +85,18 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
           fill
           className="object-contain"
           style={{ mixBlendMode: "screen" }}
-          sizes="(max-width: 768px) 300px, 500px"
+          sizes="(max-width: 768px) 320px, 560px"
           priority
+        />
+        {/* Radial vignette dissolves the rectangular PNG background into the entrance bg */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 62% 58% at center, transparent 52%, #1B2942 88%)",
+            pointerEvents: "none",
+          }}
         />
       </div>
 

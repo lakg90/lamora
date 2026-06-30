@@ -126,7 +126,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── FULL-WIDTH SPLIT IMAGE ────────────────────────────────── */}
+        {/* ── COLLECTION STATEMENT ─────────────────────────────────── */}
         <section style={{ background: "#F4EFE5" }}>
           <div
             style={{
@@ -135,26 +135,34 @@ export default function HomePage() {
               padding: "0 2.5rem 7rem",
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "1.5rem",
+              gap: "5rem",
+              alignItems: "center",
             }}
           >
             <Reveal>
-              <EditorialBlock
-                image="/products/meander-fjord-main.jpg"
-                alt="Meander Throw in Fjord"
-                label="The Meander"
-                sub="Greek-key geometry in pure cashmere"
-                href="/shop?pattern=meander"
-              />
+              <p
+                className="font-display"
+                style={{
+                  fontSize: "clamp(1.6rem, 3vw, 2.5rem)",
+                  fontWeight: 300,
+                  color: "#1B2942",
+                  lineHeight: 1.25,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                Pure cashmere throws, woven in two patterns and three colours — made to outlast the season.
+              </p>
             </Reveal>
             <Reveal delay={160}>
-              <EditorialBlock
-                image="/products/laurel-fjord-main.jpg"
-                alt="Laurel Throw in Fjord"
-                label="The Laurel"
-                sub="A leaf that climbs the cloth"
-                href="/shop?pattern=laurel"
-              />
+              <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#F4EFE5" }}>
+                <Image
+                  src="/products/laurel-fjord-flat.jpg"
+                  alt="Laurel Throw in Fjord — flat lay"
+                  fill
+                  style={{ objectFit: "contain", mixBlendMode: "multiply" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
             </Reveal>
           </div>
         </section>
@@ -369,54 +377,3 @@ export default function HomePage() {
   );
 }
 
-function EditorialBlock({
-  image,
-  alt,
-  label,
-  sub,
-  href,
-}: {
-  image: string;
-  alt: string;
-  label: string;
-  sub: string;
-  href: string;
-}) {
-  return (
-    <Link href={href} style={{ display: "block", textDecoration: "none" }}>
-      <div
-        style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#F4EFE5" }}
-        className="group"
-      >
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          className="object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out"
-          style={{ objectPosition: "center 25%" }}
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-      </div>
-      <div style={{ paddingTop: "1.25rem" }}>
-        <p
-          className="font-display"
-          style={{
-            fontSize: "1.15rem",
-            fontWeight: 300,
-            color: "#1B2942",
-            letterSpacing: "0.02em",
-            marginBottom: "0.35rem",
-          }}
-        >
-          {label}
-        </p>
-        <p
-          className="font-sans"
-          style={{ fontSize: "0.75rem", color: "#6B665C", letterSpacing: "0.04em" }}
-        >
-          {sub}
-        </p>
-      </div>
-    </Link>
-  );
-}

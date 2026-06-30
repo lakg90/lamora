@@ -11,8 +11,6 @@ export default function ProductGallery({ product }: Props) {
     product.images.main,
     product.images.flat,
     product.images.detail,
-    product.images.sofa,
-    product.images.bed,
   ].filter((src): src is string => !!src);
 
   const [active, setActive] = useState(0);

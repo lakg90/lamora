@@ -15,16 +15,12 @@ function ShopContent() {
   const [filters, setFilters] = useState<FilterState>({
     pattern: initialPattern,
     colour: "all",
-    weight: "all",
   });
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
       if (filters.pattern !== "all" && p.pattern !== filters.pattern) return false;
       if (filters.colour !== "all" && p.colourway.id !== filters.colour) return false;
-      if (filters.weight !== "all") {
-        if (!p.weights.some((w) => w.id === filters.weight)) return false;
-      }
       return true;
     });
   }, [filters]);
@@ -61,7 +57,7 @@ function ShopContent() {
               No throws match those filters.
             </p>
             <button
-              onClick={() => setFilters({ pattern: "all", colour: "all", weight: "all" })}
+              onClick={() => setFilters({ pattern: "all", colour: "all" })}
               className="font-sans"
               style={{
                 marginTop: "1.5rem",

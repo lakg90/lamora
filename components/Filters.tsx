@@ -1,11 +1,10 @@
 "use client";
 
-import type { PatternId, ColourwayId, WeightId } from "@/lib/products";
+import type { PatternId, ColourwayId } from "@/lib/products";
 
 export type FilterState = {
   pattern: PatternId | "all";
   colour: ColourwayId | "all";
-  weight: WeightId | "all";
 };
 
 type Props = {
@@ -24,12 +23,6 @@ const COLOURS: { id: ColourwayId | "all"; label: string; hex?: string }[] = [
   { id: "fjord", label: "Fjord", hex: "#8DA6BE" },
   { id: "dune", label: "Dune", hex: "#C2A98A" },
   { id: "slate", label: "Slate", hex: "#7E8488" },
-];
-
-const WEIGHTS: { id: WeightId | "all"; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "classic", label: "Classic" },
-  { id: "heavyweight", label: "Heavyweight" },
 ];
 
 export default function Filters({ filters, onChange }: Props) {
@@ -68,18 +61,6 @@ export default function Filters({ filters, onChange }: Props) {
               />
             )}
             {c.label}
-          </Chip>
-        ))}
-      </FilterGroup>
-
-      <FilterGroup label="Weight">
-        {WEIGHTS.map((w) => (
-          <Chip
-            key={w.id}
-            active={filters.weight === w.id}
-            onClick={() => onChange({ ...filters, weight: w.id })}
-          >
-            {w.label}
           </Chip>
         ))}
       </FilterGroup>
