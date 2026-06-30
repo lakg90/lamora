@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/lib/products";
 
-const FEATURED = products.slice(0, 3);
+const ALL_PRODUCTS = products;
 
 export default function HomePage() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -28,8 +28,8 @@ export default function HomePage() {
         {/* ── HERO ────────────────────────────────────────────────── */}
         <section style={{ position: "relative", height: "100svh", minHeight: "600px" }}>
           <Image
-            src="/lifestyle/bedroom.jpg"
-            alt="LAMORA cashmere throw in natural light"
+            src="/lifestyle/sofa.jpg"
+            alt="LAMORA Laurel Dune throw draped over a sofa"
             fill
             className="object-cover"
             priority
@@ -198,12 +198,12 @@ export default function HomePage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-                gap: "2.5rem",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "2.5rem 2rem",
               }}
             >
-              {FEATURED.map((p, i) => (
-                <Reveal key={p.slug} delay={i * 100}>
+              {ALL_PRODUCTS.map((p, i) => (
+                <Reveal key={p.slug} delay={i * 80}>
                   <ProductCard product={p} />
                 </Reveal>
               ))}

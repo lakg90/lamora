@@ -86,7 +86,7 @@ export default function EntranceSequence({ onDone }: { onDone: () => void }) {
         }}
       >
         <Image
-          src="/brand/lamora-logo.png"
+          src="/brand/lamora-logo-new.png"
           alt="LAMORA"
           fill
           className="object-contain"

@@ -9,9 +9,10 @@ type Props = { product: Product };
 export default function ProductGallery({ product }: Props) {
   const images = [
     product.images.main,
+    product.images.flat,
     product.images.detail,
-    product.images.alt,
-    product.images.lifestyle,
+    product.images.sofa,
+    product.images.bed,
   ].filter((src): src is string => !!src);
 
   const [active, setActive] = useState(0);

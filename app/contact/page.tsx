@@ -42,13 +42,19 @@ export default function ContactPage() {
               <div className="space-y-5 font-sans text-sm text-muted">
                 <div>
                   <p className="text-eyebrow mb-1">Email</p>
-                  {/* PLACEHOLDER: replace with real contact email */}
-                  <p className="text-ink">[PLACEHOLDER — contact@lamora.com]</p>
+                  <a
+                    href="mailto:ir@lamora.com"
+                    className="text-ink font-sans text-sm"
+                    style={{ textDecoration: "none", borderBottom: "1px solid #D8CCB8" }}
+                  >
+                    ir@lamora.com
+                  </a>
                 </div>
                 <div>
                   <p className="text-eyebrow mb-1">Address</p>
-                  {/* PLACEHOLDER: replace with real address */}
-                  <p className="text-ink">[PLACEHOLDER — Oslo, Norway]</p>
+                  <p className="text-ink font-sans text-sm">
+                    Marchmont Road<br />Edinburgh, Scotland
+                  </p>
                 </div>
               </div>
             </div>

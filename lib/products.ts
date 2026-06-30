@@ -16,10 +16,11 @@ export type Product = {
   colourway: { id: ColourwayId; label: string; hex: string };
   weights: Weight[];
   images: {
-    main: string;
-    detail?: string;
-    alt?: string;
-    lifestyle?: string;
+    main: string;    // heavyweight 3D perspective
+    flat?: string;   // flat-front portrait view
+    detail?: string; // pattern close-up
+    sofa?: string;   // lifestyle — throw on sofa
+    bed?: string;    // lifestyle — throw on bed
   };
   shortDescription: string;
   description: string;
@@ -66,14 +67,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/meander-fjord-main.jpg",
+      flat:   "/products/meander-fjord-flat.jpg",
       detail: "/products/meander-fjord-detail.jpg",
-      alt:    "/products/meander-fjord-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Meander throw in Fjord — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Meander throw in Fjord — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Fjord Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key pattern runs in soft dusty-blue — geometry that has meant 'unending' for three thousand years. Generous enough for two, light enough to fold into a bag.",
+      "A Fjord Meander throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. The Greek-key pattern runs in soft dusty-blue — geometry that has meant 'unending' for three thousand years. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
   {
     slug: "meander-dune",
@@ -83,14 +86,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/meander-dune-main.jpg",
+      flat:   "/products/meander-dune-flat.jpg",
       detail: "/products/meander-dune-detail.jpg",
-      alt:    "/products/meander-dune-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Meander throw in Dune — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Meander throw in Dune — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Dune Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key runs in warm sand — the colour of light on stone at the end of the day. Generous enough for two, light enough to fold into a bag.",
+      "A Dune Meander throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. The Greek-key runs in warm sand — the colour of light on stone at the end of the day. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
   {
     slug: "meander-slate",
@@ -100,14 +105,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/meander-slate-main.jpg",
+      flat:   "/products/meander-slate-flat.jpg",
       detail: "/products/meander-slate-detail.jpg",
-      alt:    "/products/meander-slate-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Meander throw in Slate — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Meander throw in Slate — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Slate Meander throw in pure cashmere, finished with a hand-knotted fringe. The Greek-key holds its shape in cool grey — quiet, precise, made to last decades. Generous enough for two, light enough to fold into a bag.",
+      "A Slate Meander throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. The Greek-key holds its shape in cool grey — quiet, precise, made to last decades. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
   // ─── LAUREL ────────────────────────────────────────────────────────
   {
@@ -118,14 +125,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/laurel-fjord-main.jpg",
+      flat:   "/products/laurel-fjord-flat.jpg",
       detail: "/products/laurel-fjord-detail.jpg",
-      alt:    "/products/laurel-fjord-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Laurel throw in Fjord — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Laurel throw in Fjord — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Fjord Laurel throw in pure cashmere, finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — in the cool blue of still water. Generous enough for two, light enough to fold into a bag.",
+      "A Fjord Laurel throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — in the cool blue of still water. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
   {
     slug: "laurel-dune",
@@ -135,14 +144,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/laurel-dune-main.jpg",
+      flat:   "/products/laurel-dune-flat.jpg",
       detail: "/products/laurel-dune-detail.jpg",
-      alt:    "/products/laurel-dune-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Laurel throw in Dune — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Laurel throw in Dune — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Dune Laurel throw in pure cashmere, finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — warm sand catching the weave. Generous enough for two, light enough to fold into a bag.",
+      "A Dune Laurel throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. A leaf that climbs the cloth, soft-edged and unhurried — warm sand catching the weave. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
   {
     slug: "laurel-slate",
@@ -152,14 +163,16 @@ export const products: Product[] = [
     weights: WEIGHTS,
     images: {
       main:   "/products/laurel-slate-main.jpg",
+      flat:   "/products/laurel-slate-flat.jpg",
       detail: "/products/laurel-slate-detail.jpg",
-      alt:    "/products/laurel-slate-alt.jpg",
+      sofa:   "/lifestyle/sofa.jpg",
+      bed:    "/lifestyle/bed.jpg",
     },
-    shortDescription: "Laurel throw in Slate — 100% cashmere with hand-knotted fringe.",
+    shortDescription: "Laurel throw in Slate — certified cashmere blend with hand-knotted fringe.",
     description:
-      "A Slate Laurel throw in pure cashmere, finished with a hand-knotted fringe. The leaf pattern in cool grey — unhurried, precise, made to live in the room for years. Generous enough for two, light enough to fold into a bag.",
+      "A Slate Laurel throw in certified cashmere blend, woven in India and finished with a hand-knotted fringe. The leaf pattern in cool grey — unhurried, precise, made to live in the room for years. Generous enough for two, light enough to fold into a bag.",
     care: CARE,
-    composition: "100% cashmere",
+    composition: "Certified cashmere blend",
   },
 ];
 
