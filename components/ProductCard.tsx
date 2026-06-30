@@ -19,7 +19,6 @@ export function formatPrice(amount: number) {
 export default function ProductCard({ product }: Props) {
   const [hovered, setHovered] = useState(false);
   const fromPrice = Math.min(...product.weights.map((w) => w.price));
-  const showAlt = hovered && !!product.images.alt && product.images.alt !== product.images.main;
 
   return (
     <Link
@@ -29,30 +28,46 @@ export default function ProductCard({ product }: Props) {
       onMouseLeave={() => setHovered(false)}
     >
       {/*
-        object-fit: cover + overflow hidden means the studio background is CROPPED OUT.
-        Every card shows only the textile pattern, filling the frame identically.
-        Hover scale zooms into the product itself, not into white space — consistent across all.
+        object-fit: contain shows the full throw. mix-blend-mode: multiply maps
+        the studio's near-white backgrounds to the site cream (#F4EFE5) so all
+        cards share the same background regardless of how warm or cool the photo was.
+        On hover, crossfade to the detail (pattern close-up) image — never shows
+        thickness layers, just the weave pattern.
       */}
       <div
         style={{
           position: "relative",
           aspectRatio: "3 / 4",
           overflow: "hidden",
-          background: "#EAE5DB", // neutral mid-point — barely visible behind cover
+          background: "#F4EFE5",
         }}
       >
         <Image
-          src={showAlt ? product.images.alt! : product.images.main}
+          src={product.images.main}
           alt={`${product.name} in ${product.colourway.label}`}
           fill
-          className="object-cover"
-          style={{
-            objectPosition: "center 25%",   // favour the pattern, not the fringe
-            transform: hovered ? "scale(1.06)" : "scale(1)",
-            transition: "transform 1s cubic-bezier(0.16,1,0.3,1)",
-          }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          style={{
+            objectFit: "contain",
+            mixBlendMode: "multiply",
+            opacity: hovered && product.images.detail ? 0 : 1,
+            transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",
+          }}
         />
+        {product.images.detail && (
+          <Image
+            src={product.images.detail}
+            alt={`${product.name} pattern detail`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{
+              objectFit: "cover",
+              mixBlendMode: "multiply",
+              opacity: hovered ? 1 : 0,
+              transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          />
+        )}
       </div>
 
       {/* Caption */}

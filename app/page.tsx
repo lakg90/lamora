@@ -385,7 +385,7 @@ function EditorialBlock({
   return (
     <Link href={href} style={{ display: "block", textDecoration: "none" }}>
       <div
-        style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#EAE5DB" }}
+        style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#F4EFE5" }}
         className="group"
       >
         <Image
