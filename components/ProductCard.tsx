@@ -50,18 +50,18 @@ export default function ProductCard({ product }: Props) {
           style={{
             objectFit: "contain",
             mixBlendMode: "multiply",
-            opacity: hovered && product.images.detail ? 0 : 1,
+            opacity: hovered && product.images.flat ? 0 : 1,
             transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",
           }}
         />
-        {product.images.detail && (
+        {product.images.flat && (
           <Image
-            src={product.images.detail}
-            alt={`${product.name} pattern detail`}
+            src={product.images.flat}
+            alt={`${product.name} flat view`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             style={{
-              objectFit: "cover",
+              objectFit: "contain",
               mixBlendMode: "multiply",
               opacity: hovered ? 1 : 0,
               transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",

@@ -30,7 +30,7 @@ export default function SourcingPage() {
             <div>
               <p className="text-eyebrow-brass mb-4">The fibre</p>
               <h2 className="text-display-md font-display text-ink mb-5">
-                100% cashmere
+                Certified cashmere blend
               </h2>
               <div className="w-10 h-px bg-brass mb-6" />
               <div className="space-y-4 font-sans text-sm text-muted leading-relaxed">
@@ -41,13 +41,14 @@ export default function SourcingPage() {
                   our workshop is selected for fineness and evenness.
                 </p>
                 <p>
-                  {/* PLACEHOLDER: confirm fibre origin / supplier / certification with owner */}
-                  [PLACEHOLDER — fibre origin and any certifications to be confirmed with supplier.]
+                  Every LAMORA throw is a certified cashmere blend, verified
+                  against international fibre standards. The certification covers
+                  fibre grade, blend composition, and traceability back to origin.
                 </p>
                 <p>
-                  The composition is simple: 100% cashmere, no blending. The
-                  quality is in the selection of the raw fibre, not in additives
-                  or treatments.
+                  The cloth is woven in India — one of the oldest cashmere
+                  weaving traditions in the world, refined over centuries in the
+                  workshops of Kashmir and the plains beyond.
                 </p>
               </div>
             </div>

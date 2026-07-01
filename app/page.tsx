@@ -28,8 +28,8 @@ export default function HomePage() {
         {/* ── HERO ────────────────────────────────────────────────── */}
         <section style={{ position: "relative", height: "100svh", minHeight: "600px" }}>
           <Image
-            src="/lifestyle/sofa.jpg"
-            alt="LAMORA Laurel Dune throw draped over a sofa"
+            src="/lifestyle/bed.jpg"
+            alt="LAMORA Laurel Dune throw on a bed"
             fill
             className="object-cover"
             priority
@@ -156,10 +156,10 @@ export default function HomePage() {
             <Reveal delay={160}>
               <div style={{ position: "relative", aspectRatio: "3/4", overflow: "hidden", background: "#F4EFE5" }}>
                 <Image
-                  src="/products/laurel-fjord-flat.jpg"
-                  alt="Laurel Throw in Fjord — flat lay"
+                  src="/lifestyle/sofa.jpg"
+                  alt="LAMORA throw draped on a sofa"
                   fill
-                  style={{ objectFit: "contain", mixBlendMode: "multiply" }}
+                  style={{ objectFit: "cover" }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
