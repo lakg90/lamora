@@ -91,41 +91,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── EDITORIAL INTRO ──────────────────────────────────────── */}
-        <section style={{ background: "#F4EFE5", padding: "7rem 2.5rem" }}>
-          <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-            <Reveal>
-              <div style={{ maxWidth: "520px" }}>
-                <p
-                  className="font-sans"
-                  style={{
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: "#AE8B4C",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  The collection
-                </p>
-                <p
-                  className="font-display"
-                  style={{
-                    fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
-                    fontWeight: 300,
-                    color: "#1B2942",
-                    lineHeight: 1.2,
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  Pure cashmere throws, woven in two patterns and three colours —
-                  made to outlast the season.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         {/* ── COLLECTION STATEMENT ─────────────────────────────────── */}
         <section style={{ background: "#F4EFE5" }}>
           <div
