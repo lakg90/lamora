@@ -61,7 +61,7 @@ export default function ProductCard({ product }: Props) {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             style={{
-              objectFit: "contain",
+              objectFit: "cover",
               mixBlendMode: "multiply",
               opacity: hovered ? 1 : 0,
               transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",
