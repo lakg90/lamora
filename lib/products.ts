@@ -18,6 +18,7 @@ export type Product = {
   images: {
     main: string;    // heavyweight 3D perspective
     flat?: string;   // flat-front portrait view
+    flatScale?: number; // corrects for source photos where the throw fills less of the frame, so hover zoom looks consistent across cards
     detail?: string; // pattern close-up
     sofa?: string;   // lifestyle — throw on sofa
     bed?: string;    // lifestyle — throw on bed
@@ -126,6 +127,7 @@ export const products: Product[] = [
     images: {
       main:   "/products/laurel-fjord-main.jpg",
       flat:   "/products/laurel-fjord-flat.jpg",
+      flatScale: 1.16,
       detail: "/products/laurel-fjord-detail.jpg",
       sofa:   "/lifestyle/sofa.jpg",
       bed:    "/lifestyle/bed.jpg",

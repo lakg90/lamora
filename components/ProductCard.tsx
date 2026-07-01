@@ -64,6 +64,7 @@ export default function ProductCard({ product }: Props) {
               objectFit: "cover",
               mixBlendMode: "multiply",
               opacity: hovered ? 1 : 0,
+              transform: `scale(${product.images.flatScale ?? 1})`,
               transition: "opacity 0.65s cubic-bezier(0.16,1,0.3,1)",
             }}
           />
