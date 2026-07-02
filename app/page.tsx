@@ -94,11 +94,13 @@ export default function HomePage() {
         {/* ── COLLECTION STATEMENT ─────────────────────────────────── */}
         <section style={{ background: "#F4EFE5" }}>
           <div
-            className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-20"
+            className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-20 pt-16 md:pt-0"
             style={{
               maxWidth: "1400px",
               margin: "0 auto",
-              padding: "0 2.5rem 7rem",
+              paddingLeft: "2.5rem",
+              paddingRight: "2.5rem",
+              paddingBottom: "7rem",
             }}
           >
             <Reveal>
