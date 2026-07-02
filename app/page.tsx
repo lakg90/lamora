@@ -94,14 +94,11 @@ export default function HomePage() {
         {/* ── COLLECTION STATEMENT ─────────────────────────────────── */}
         <section style={{ background: "#F4EFE5" }}>
           <div
+            className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-20"
             style={{
               maxWidth: "1400px",
               margin: "0 auto",
               padding: "0 2.5rem 7rem",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "5rem",
-              alignItems: "center",
             }}
           >
             <Reveal>
@@ -168,13 +165,7 @@ export default function HomePage() {
               </div>
             </Reveal>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "2.5rem 2rem",
-              }}
-            >
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-10">
               {ALL_PRODUCTS.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 80}>
                   <ProductCard product={p} />
@@ -187,14 +178,11 @@ export default function HomePage() {
         {/* ── FULL-BLEED DARK BAND ─────────────────────────────────── */}
         <section style={{ position: "relative", background: "#1B2942" }}>
           <div
+            className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-20"
             style={{
               maxWidth: "1400px",
               margin: "0 auto",
               padding: "7rem 2.5rem",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "5rem",
-              alignItems: "center",
             }}
           >
             <Reveal>

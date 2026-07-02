@@ -17,6 +17,7 @@ export default function Footer() {
       <div style={{ height: "1px", background: "rgba(244,239,229,0.08)" }} />
 
       <div
+        className="footer-grid"
         style={{
           maxWidth: "1400px",
           margin: "0 auto",

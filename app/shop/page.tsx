@@ -76,13 +76,7 @@ function ShopContent() {
             </button>
           </div>
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "3rem 2rem",
-            }}
-          >
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-12">
             {filtered.map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}
